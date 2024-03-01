@@ -1,8 +1,16 @@
-import React from 'react';
+"use client";
+
+import React, { useState } from 'react';
 import { MailIcon, LockClosedIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 
 export default function Login() {
+
+  const [user, setUser] = useState({
+    email: '',
+    password: '',
+  });
+
   return (
     <div>
       <section className="bg-gray-50 dark:bg-gray-900">
@@ -26,6 +34,8 @@ export default function Login() {
                       type="email"
                       name="email"
                       id="email"
+                      onChange={(e) => {setUser({...user, email: e.target.value})}}
+                      value={user?.email}
                       className="text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full py-2 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="example@mail.com"
                       required=""
@@ -45,6 +55,8 @@ export default function Login() {
                       type="password"
                       name="password"
                       id="password"
+                      onChange={(e) => {setUser({...user, password: e.target.value})}}
+                      value={user?.password}
                       placeholder="••••••••"
                       className="text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full py-2 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       required=""
