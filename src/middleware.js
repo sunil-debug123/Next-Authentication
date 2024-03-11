@@ -1,23 +1,26 @@
 import { NextResponse } from 'next/server'
- 
-// This function can be marked `async` if using `await` inside
+
 export function middleware(request) {
   const { nextUrl } = request;
   const { pathname } = nextUrl;
-  const isPublicPath = pathname === '/login' || pathname === '/signup';
+  const isPublic = pathname === '/login' || pathname === '/signup';
   const token = request.cookies.get('token')?.value || '';
-  if (isPublicPath && token) {
+
+  if (pathname === '/' && token) {
+    // Redirect to dashboard if user is authenticated
     return NextResponse.redirect(new URL('/dashboard', request.nextUrl));
   }
 
-  if (!isPublicPath && !token) {
+  if (!token && !isPublic) {
+    // Redirect to login page if user is not authenticated and not on login page
     return NextResponse.redirect(new URL('/login', request.nextUrl));
   }
 }
  
-// See "Matching Paths" below to learn more
 export const config = {
+  // Add your paths here
   matcher: [
+    '/',
     '/dashboard',
     '/login',
     '/signup'
