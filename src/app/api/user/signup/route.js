@@ -11,7 +11,7 @@ export async function POST(request) {
         const existingUser = await getUserByEmail(body.email);
 
         if (existingUser.length > 0) {
-            return NextResponse.json({ error: "User with this email already exists" }, { status: 400 });
+            return NextResponse.json({ error: "User with this email already exists" }, {status: 400});
         }
 
         // Hash the password before storing in the database
